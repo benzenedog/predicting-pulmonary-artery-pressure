@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)https://filedn.com/lpAczQGgeBjkX6l7SpI5JJy/cteph_calc_v1_nishio.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Required meta tags -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="./Mean PAP calculator for CTEPH patient_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Mean PAP calculator for CTEPH patient</title>
+  </head>
+  <body>
+    <h1>Mean PAP calculator for CTEPH patient</h1>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Age</span>
+        </div>
+        <input type="text" class="form-control" id="input_age" placeholder="Age(years)" aria-label="Example text with two button addons" aria-describedby="button-addon3">
+        <div class="input-group-append">
+          <span class="input-group-text">years</span>
+      </div>        
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">BNP</span>
+        </div>
+        <input type="text" class="form-control" id="input_bnp" placeholder="BNP(pg/ml)" aria-label="BNP" aria-describedby="basic-addon1">
+        <div class="input-group-append">
+            <span class="input-group-text">pg/ml</span>
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">TRPG</span>
+        </div>
+        <input type="text" class="form-control" id="input_trpg" placeholder="TRPG(mmHg)" aria-label="TRPG" aria-describedby="basic-addon1">
+        <div class="input-group-append">
+            <span class="input-group-text">mmHg</span>
+        </div>        
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">CTR from chest X-ray</span>
+        </div>
+        <input type="text" class="form-control" id="input_ctr" placeholder="CTR" aria-label="CTR" aria-describedby="basic-addon1">
+        <div class="input-group-append">
+            <span class="input-group-text">0 - 1</span>
+        </div>
+    </div>
+    <div>
+        <button type="button" id="calculatebtn" class="btn btn-success">Calculate</button>
+        <button type="button" id="resetbtn" class="btn btn-danger">Reset</button>
+    </div>
+    <div>
+        calculated mean PAP(mmHg) 
+        <span class="input-group-text" id="result"></span>
+    </div>
+
+    <div>
+        Caution: This site is used only for research purpose. 
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="./Mean PAP calculator for CTEPH patient_files/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+// ==============================================================================
+// Dep. Variable:                   mPAP   R-squared:                       0.488
+// Model:                            OLS   Adj. R-squared:                  0.473
+// Method:                 Least Squares   F-statistic:                     31.24
+// Date:                Tue, 04 Jan 2022   Prob (F-statistic):           2.92e-18
+// Time:                        09:35:29   Log-Likelihood:                -462.07
+// No. Observations:                 136   AIC:                             934.1
+// Df Residuals:                     131   BIC:                             948.7
+// Df Model:                           4                                         
+// Covariance Type:            nonrobust                                         
+// ==============================================================================
+//                  coef    std err          t      P>|t|      [0.025      0.975]
+// ------------------------------------------------------------------------------
+// Intercept     42.0532      6.323      6.650      0.000      29.544      54.562
+// age           -0.2785      0.050     -5.535      0.000      -0.378      -0.179
+// TRPG           0.2316      0.040      5.849      0.000       0.153       0.310
+// logBNP         1.6929      0.562      3.010      0.003       0.580       2.806
+// logCTR        11.3598      5.916      1.920      0.057      -0.344      23.063
+// ==============================================================================
+// Omnibus:                        7.196   Durbin-Watson:                   2.277
+// Prob(Omnibus):                  0.027   Jarque-Bera (JB):                7.261
+// Skew:                           0.566   Prob(JB):                       0.0265
+// Kurtosis:                       3.020   Cond. No.                     1.16e+03
+// ==============================================================================
+        const calcbtn = document.getElementById('calculatebtn');
+        calcbtn.addEventListener("click", function(){
+          var age = document.getElementById("input_age").value;
+          //var sex = document.getElementById("input_sex").value;
+          var bnp = document.getElementById("input_bnp").value;
+          var trpg = document.getElementById("input_trpg").value;
+          var ctr = document.getElementById("input_ctr").value;
+          //var aa = document.getElementById("input_aa").value;
+          //var sar = document.getElementById("input_sar").value;
+          var log_bnp = Math.log(bnp);
+          var log_ctr = Math.log(ctr);
+          var meanPAP = 0;
+          meanPAP += -0.2785 * age;
+          meanPAP += 1.6929* log_bnp;
+          meanPAP += 0.2316* trpg;
+          meanPAP += 11.3598* log_ctr;
+          meanPAP += 42.0532;
+          console.log(meanPAP);
+          document.getElementById('result').textContent=meanPAP;
+        }); 
+        const resetbtn = document.getElementById('resetbtn');
+        resetbtn.addEventListener("click", function(){
+          document.getElementById("input_age").value = "";
+          document.getElementById("input_bnp").value = "";
+          document.getElementById("input_trpg").value = "";
+          document.getElementById("input_ctr").value = "";
+          document.getElementById('result').textContent="";
+        }); 
+    </script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  
+<script>mendeleyWebImporter = {
+  downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+  open() { return this._call('open', []); },
+  setLoginToken(e) { return this._call('setLoginToken', [e]); },
+  _call(methodName, methodArgs) {
+    const id = Math.random();
+    window.postMessage({ id, token: '0.8888701109048467', methodName, methodArgs }, 'https://filedn.com');
+    return new Promise(resolve => {
+      const listener = window.addEventListener('message', event => {
+        const data = event.data;
+        if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+        window.removeEventListener('message', listener);
+        resolve(data.result);
+      });
+    });
+  }
+};</script></body></html>
